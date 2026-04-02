@@ -303,7 +303,6 @@ This Worker deploys automatically to Cloudflare Workers via the Cloudflare Dashb
 ## Notes
 
 - `/ip` uses `cf-connecting-ip` so you get the real client IP, not a proxy IP
-- `/cf` returns Cloudflare-specific metadata including Ray ID, country code, and colo (edge location)
 - `/delay` is capped at 10 seconds
 - `/stream-bytes` is capped at 100KB
 - Streaming responses use `ReadableStream` natively in the Workers runtime
