@@ -268,6 +268,32 @@ npm run deploy
 
 Requires [Node.js](https://nodejs.org) and a [Cloudflare account](https://dash.cloudflare.com/sign-up).
 
+## Testing
+
+Tests are written with [Vitest](https://vitest.dev) and run in a local [Miniflare](https://miniflare.dev) environment.
+
+```bash
+# Run tests once
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage
+npm run test:coverage
+```
+
+The test suite covers:
+- HTTP Methods (GET, POST, PUT, DELETE, PATCH, /anything)
+- Request Inspection (/headers, /ip, /user-agent)
+- Response Formats (/json, /html, /xml, /robots.txt, /deny, /encoding/utf8)
+- Status Codes (/status/:code)
+- Redirects (/redirect, /absolute-redirect, /relative-redirect, /redirect-to)
+- Delays (/delay/:seconds)
+- Auth (/basic-auth, /bearer)
+- Cookies (/cookies, /cookies/set, /cookies/delete)
+- Streaming (/stream, /stream-bytes)
+
 ## Deployment
 
 This Worker deploys automatically to Cloudflare Workers via the Cloudflare Dashboard on every push to `main`.
@@ -278,3 +304,6 @@ This Worker deploys automatically to Cloudflare Workers via the Cloudflare Dashb
 - `/delay` is capped at 10 seconds
 - `/stream-bytes` is capped at 100KB
 - Streaming responses use `ReadableStream` natively in the Workers runtime
+
+# TODO
+- inspect CF-specific headers
