@@ -66,6 +66,55 @@ export default {
       if (path === '/encoding/utf8')
         return new Response(SAMPLE_UTF8, { headers: { 'content-type': 'text/html; charset=utf-8' } });
 
+      // ── Utilities ─────────────────────────────────────────────────────────
+      if (path === '/uuid')
+        return jsonResp({ uuid: crypto.randomUUID() });
+
+      if (path.startsWith('/base64/')) {
+        const encoded = path.slice('/base64/'.length);
+        try {
+          const decoded = atob(encoded);
+          return jsonResp({ encoded, decoded });
+        } catch {
+          return new Response('Invalid base64', { status: 400 });
+        }
+      }
+
+      if (path.startsWith('/bytes/')) {
+        const n = Math.min(parseInt(path.slice('/bytes/'.length), 10), 100 * 1024);
+        if (isNaN(n) || n < 1) return new Response('Invalid count', { status: 400 });
+        // Cap at a reasonable size for the environment
+        const size = Math.min(n, 100 * 1024);
+        const bytes = new Uint8Array(size);
+        crypto.getRandomValues(bytes);
+        return new Response(bytes, {
+          headers: { 'content-type': 'application/octet-stream' },
+        });
+      }
+
+      // ── Compression ───────────────────────────────────────────────────────
+      if (path === '/gzip') {
+        const data = JSON.stringify(await buildReflect(request, url));
+        const compressed = await gzip(data);
+        return new Response(compressed, {
+          headers: {
+            'content-type': 'application/json',
+            'content-encoding': 'gzip',
+          },
+        });
+      }
+
+      if (path === '/deflate') {
+        const data = JSON.stringify(await buildReflect(request, url));
+        const compressed = await deflate(data);
+        return new Response(compressed, {
+          headers: {
+            'content-type': 'application/json',
+            'content-encoding': 'deflate',
+          },
+        });
+      }
+
       // ── Status Codes ──────────────────────────────────────────────────────
       if (path.startsWith('/status/')) {
         const codes = path.slice('/status/'.length).split(',');
@@ -346,6 +395,23 @@ function jsonResp(data, status = 200) {
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+// Compression helpers using built-in CompressionStream API
+async function gzip(data) {
+  const stream = new CompressionStream('gzip');
+  const writer = stream.writable.getWriter();
+  writer.write(new TextEncoder().encode(data));
+  writer.close();
+  return new Response(stream.readable).arrayBuffer();
+}
+
+async function deflate(data) {
+  const stream = new CompressionStream('deflate');
+  const writer = stream.writable.getWriter();
+  writer.write(new TextEncoder().encode(data));
+  writer.close();
+  return new Response(stream.readable).arrayBuffer();
 }
 
 function parseCookies(cookieHeader) {

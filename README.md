@@ -82,6 +82,21 @@ Comma-separate codes for random selection: `/status/200,404,500`
 | `/stream/:n` | Streams n newline-delimited JSON objects (max 100) |
 | `/stream-bytes/:n` | Streams n random bytes (max 100KB) |
 
+### Utilities
+
+| Endpoint | Description |
+|---|---|
+| `/uuid` | Returns a UUIDv4 |
+| `/base64/:value` | Decodes base64 value |
+| `/bytes/:n` | Returns n random bytes (max 100KB) |
+
+### Compression
+
+| Endpoint | Description |
+|---|---|
+| `/gzip` | Returns gzip-compressed JSON |
+| `/deflate` | Returns deflate-compressed JSON |
+
 ## Browser URLs
 
 Paste these directly into a browser:
