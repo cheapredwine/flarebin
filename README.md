@@ -97,6 +97,51 @@ Comma-separate codes for random selection: `/status/200,404,500`
 | `/gzip` | Returns gzip-compressed JSON |
 | `/deflate` | Returns deflate-compressed JSON |
 
+## Features
+
+### CORS Support
+All endpoints support Cross-Origin Resource Sharing (CORS) with the following headers:
+- `Access-Control-Allow-Origin: *`
+- `Access-Control-Allow-Methods: GET, POST, PUT, DELETE, PATCH, OPTIONS, HEAD`
+- `Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With`
+
+Preflight `OPTIONS` requests return a 204 response with appropriate headers.
+
+### Security Headers
+All responses include security headers:
+- `X-Content-Type-Options: nosniff`
+- `X-Frame-Options: DENY`
+- `X-XSS-Protection: 1; mode=block`
+- `Referrer-Policy: strict-origin-when-cross-origin`
+
+### JSON Error Responses
+Error responses return structured JSON instead of plain text:
+```json
+{
+  "error": "Invalid status code",
+  "status": 400
+}
+```
+
+### Request Limits
+- Maximum request body size: **10MB**
+- Maximum delay: **10 seconds**
+- Maximum stream items: **100**
+- Maximum bytes (streaming or direct): **100KB**
+
+### Request Logging
+All requests are logged in structured JSON format for monitoring and debugging:
+```json
+{
+  "method": "GET",
+  "path": "/get",
+  "ip": "1.2.3.4",
+  "userAgent": "curl/7.64.1",
+  "timestamp": "2026-04-03T05:44:50.123Z",
+  "ray": "9e65c4f05ae8a0c3"
+}
+```
+
 ## Browser URLs
 
 Paste these directly into a browser:
@@ -302,7 +347,7 @@ npm run test:coverage
 
 The test suite covers:
 - HTTP Methods (GET, POST, PUT, DELETE, PATCH, /anything)
-- Request Inspection (/headers, /ip, /user-agent)
+- Request Inspection (/headers, /ip, /user-agent, /cf)
 - Response Formats (/json, /html, /xml, /robots.txt, /deny, /encoding/utf8)
 - Status Codes (/status/:code)
 - Redirects (/redirect, /absolute-redirect, /relative-redirect, /redirect-to)
@@ -310,6 +355,10 @@ The test suite covers:
 - Auth (/basic-auth, /bearer)
 - Cookies (/cookies, /cookies/set, /cookies/delete)
 - Streaming (/stream, /stream-bytes)
+- CORS handling and headers
+- Security headers
+- JSON error responses
+- Request body size limits
 
 ## Deployment
 
