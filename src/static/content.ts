@@ -270,6 +270,15 @@ export const INDEX_HTML = `<!DOCTYPE html>
     <tr><td><a href="/deflate">/deflate</a></td><td>Returns deflate-compressed JSON with Content-Encoding header</td></tr>
   </table>
 
+  <h2>Diagnostics</h2>
+  <p class="note">Performance and connection debugging</p>
+  <table>
+    <tr><th>Endpoint</th><th>Description</th></tr>
+    <tr><td><a href="/connection">/connection</a></td><td>TLS version, cipher suite, HTTP protocol</td></tr>
+    <tr><td><a href="/timing">/timing</a></td><td>Worker timing, deployment info, cold start detection</td></tr>
+    <tr><td><a href="/diagnostics">/diagnostics</a></td><td>Complete diagnostics (connection + timing + geo)</td></tr>
+  </table>
+
   <footer>
     <p>
       <strong>flarebin</strong> | 

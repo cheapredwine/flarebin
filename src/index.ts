@@ -85,6 +85,9 @@ import {
 // Delay endpoint (/delay/:seconds)
 import { handleDelay } from './routes/delays';
 
+// Diagnostic endpoints (/connection, /timing, /diagnostics)
+import { handleConnection, handleTiming, handleDiagnostics } from './routes/diagnostics';
+
 // =============================================================================
 // Router Setup
 // =============================================================================
@@ -197,6 +200,12 @@ function createRouter(): Router {
   router.get(/^\/stream-bytes\/(.+)$/, (req, url, match) =>
     handleStreamBytes(match!, url, req)
   );
+
+  // ── Diagnostics ────────────────────────────────────────────────────────────
+  // Enhanced diagnostic endpoints for debugging and performance analysis.
+  router.get(/^\/connection$/, handleConnection);
+  router.get(/^\/timing$/, handleTiming);
+  router.get(/^\/diagnostics$/, (req, url) => handleDiagnostics(req, url));
 
   // ── Index & Documentation ─────────────────────────────────────────────────
   // Root path (/) shows the index page, /docs shows API documentation.

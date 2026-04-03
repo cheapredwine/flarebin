@@ -111,6 +111,36 @@ export interface CFMetadata {
 }
 
 /**
+ * Enhanced diagnostic information
+ *
+ * This extends the basic CFMetadata with additional timing and
+ * connection details useful for performance debugging.
+ */
+export interface EnhancedDiagnostics extends CFMetadata {
+  // Timing metrics
+  /** How long the server spent processing this request (milliseconds) */
+  serverProcessingMs: number;
+  /** When this Worker instance started (Unix timestamp) */
+  workerStartTime: number;
+  /** How long this Worker instance has been running (milliseconds) */
+  workerAgeMs: number;
+
+  // Connection details
+  /** TLS version used for this connection (e.g., "1.3", "1.2") */
+  tlsVersion: string | null;
+  /** Cipher suite used for this TLS connection */
+  tlsCipher: string | null;
+  /** HTTP version used for this request (e.g., "HTTP/2", "HTTP/1.1") */
+  httpProtocol: string | null;
+
+  // Deployment info
+  /** Git commit hash or version identifier for this deployment */
+  deploymentVersion: string;
+  /** Timestamp when this code was deployed */
+  deploymentTime: string;
+}
+
+/**
  * Information about an uploaded file
  *
  * Used when handling multipart/form-data uploads (file uploads)

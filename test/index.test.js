@@ -1042,6 +1042,92 @@ describe('flarebin', () => {
     });
   });
 
+  // ── Diagnostics Endpoints ────────────────────────────────────────────────
+  describe('Diagnostics', () => {
+    it('/connection returns connection details', async () => {
+      const resp = await makeRequest('/connection');
+      expect(resp.status).toBe(200);
+      const json = await resp.json();
+
+      // Verify structure - these may be null in test environment but keys should exist
+      expect(json).toHaveProperty('tlsVersion');
+      expect(json).toHaveProperty('tlsCipher');
+      expect(json).toHaveProperty('httpProtocol');
+      expect(json).toHaveProperty('tlsEarlyData');
+    });
+
+    it('/timing returns timing and deployment info', async () => {
+      const resp = await makeRequest('/timing');
+      expect(resp.status).toBe(200);
+      const json = await resp.json();
+
+      // Verify all expected properties exist
+      expect(json.workerStartTime).toBeDefined();
+      expect(typeof json.workerStartTime).toBe('number');
+
+      expect(json.workerAgeMs).toBeDefined();
+      expect(typeof json.workerAgeMs).toBe('number');
+      expect(json.workerAgeMs).toBeGreaterThanOrEqual(0);
+
+      expect(json.isColdStart).toBeDefined();
+      expect(typeof json.isColdStart).toBe('boolean');
+
+      expect(json.deploymentVersion).toBeDefined();
+      expect(typeof json.deploymentVersion).toBe('string');
+
+      expect(json.deploymentTime).toBeDefined();
+      expect(typeof json.deploymentTime).toBe('string');
+
+      expect(json.note).toBeDefined();
+      expect(typeof json.note).toBe('string');
+    });
+
+    it('/diagnostics returns comprehensive diagnostic data', async () => {
+      const resp = await makeRequest('/diagnostics');
+      expect(resp.status).toBe(200);
+      const json = await resp.json();
+
+      // Verify it includes base CFMetadata fields
+      expect(json.ray).toBeDefined();
+      expect(json.ip).toBeDefined();
+      expect(json.country).toBeDefined();
+      expect(json.colo).toBeDefined();
+
+      // Verify it includes timing fields
+      expect(json.serverProcessingMs).toBeDefined();
+      expect(typeof json.serverProcessingMs).toBe('number');
+      expect(json.serverProcessingMs).toBeGreaterThanOrEqual(0);
+
+      expect(json.workerStartTime).toBeDefined();
+      expect(json.workerAgeMs).toBeDefined();
+
+      // Verify it includes connection fields
+      expect(json).toHaveProperty('tlsVersion');
+      expect(json).toHaveProperty('tlsCipher');
+      expect(json).toHaveProperty('httpProtocol');
+
+      // Verify it includes deployment fields
+      expect(json.deploymentVersion).toBeDefined();
+      expect(json.deploymentTime).toBeDefined();
+    });
+
+    it('/diagnostics timing is reasonable (under 100ms)', async () => {
+      const start = Date.now();
+      const resp = await makeRequest('/diagnostics');
+      const end = Date.now();
+
+      expect(resp.status).toBe(200);
+
+      // The server-reported processing time should be reasonable
+      const json = await resp.json();
+      expect(json.serverProcessingMs).toBeLessThan(100);
+
+      // Total round-trip should also be reasonable (though this includes network overhead)
+      const totalTime = end - start;
+      expect(totalTime).toBeLessThan(1000); // 1 second max for local testing
+    });
+  });
+
   // ── Middleware Tests ─────────────────────────────────────────────────────
   describe('Middleware', () => {
     it('request logging includes required fields', async () => {
