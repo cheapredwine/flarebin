@@ -266,8 +266,8 @@ export const INDEX_HTML = `<!DOCTYPE html>
   <p class="note">Test compression handling in your HTTP client</p>
   <table>
     <tr><th>Endpoint</th><th>Description</th></tr>
-    <tr><td>/gzip</td><td>Returns gzip-compressed JSON with Content-Encoding header</td></tr>
-    <tr><td>/deflate</td><td>Returns deflate-compressed JSON with Content-Encoding header</td></tr>
+    <tr><td><a href="/gzip">/gzip</a></td><td>Returns gzip-compressed JSON with Content-Encoding header</td></tr>
+    <tr><td><a href="/deflate">/deflate</a></td><td>Returns deflate-compressed JSON with Content-Encoding header</td></tr>
   </table>
 
   <footer>
