@@ -10,7 +10,7 @@ describe('cf-httpbin', () => {
 
   beforeAll(async () => {
     mf = new Miniflare({
-      scriptPath: path.resolve(__dirname, '../src/index.js'),
+      scriptPath: path.resolve(__dirname, '../dist/bundle.js'),
       modules: true,
       compatibilityDate: '2026-03-01',
     });

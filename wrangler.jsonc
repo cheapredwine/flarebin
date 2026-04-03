@@ -1,6 +1,9 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "cf-httpbin",
-  "main": "src/index.js",
-  "compatibility_date": "2026-03-01"
+  "main": "dist/bundle.js",
+  "compatibility_date": "2026-03-01",
+  "build": {
+    "command": "npm run bundle"
+  }
 }
