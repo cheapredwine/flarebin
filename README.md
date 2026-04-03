@@ -313,7 +313,49 @@ The test suite covers:
 
 ## Deployment
 
-This Worker deploys automatically to Cloudflare Workers via the Cloudflare Dashboard on every push to `main`.
+### Automatic Deployment via GitHub Actions
+
+This project deploys automatically to Cloudflare Workers on every push to `main` using GitHub Actions.
+
+**Prerequisites:**
+
+1. A [Cloudflare account](https://dash.cloudflare.com/sign-up)
+2. GitHub repository secrets configured
+
+**Setup GitHub Secrets:**
+
+1. Go to your repository settings: `https://github.com/YOUR_USERNAME/cf-httpbin/settings/secrets/actions`
+2. Add the following secrets:
+   - **`CLOUDFLARE_API_TOKEN`**: Create at [Cloudflare API Tokens](https://dash.cloudflare.com/profile/api-tokens)
+     - Use the "Edit Cloudflare Workers" template, OR
+     - Create a custom token with `Account > Workers Scripts > Edit` permission
+   - **`CLOUDFLARE_ACCOUNT_ID`**: Find in your [Cloudflare dashboard](https://dash.cloudflare.com/) (visible in the URL or Workers overview page)
+
+**How it works:**
+
+- Every push to `main` triggers the deploy workflow (`.github/workflows/deploy.yml`)
+- The workflow runs `npm run bundle` to create `dist/bundle.js`
+- Wrangler deploys the bundle to Cloudflare Workers
+- Your Worker is live at `https://cf-httpbin.YOUR_SUBDOMAIN.workers.dev`
+
+**Manual Deployment:**
+
+You can also deploy manually from your local machine:
+
+```bash
+# Install dependencies
+npm install
+
+# Build the bundle
+npm run bundle
+
+# Deploy to Cloudflare Workers
+npm run deploy
+```
+
+Manual deployment requires:
+- [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/) authenticated with your Cloudflare account
+- Run `npx wrangler login` to authenticate
 
 ## Notes
 
