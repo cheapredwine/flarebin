@@ -188,6 +188,10 @@ https://flarebin.jsherron-test-account.workers.dev/delay/5
 https://flarebin.jsherron-test-account.workers.dev/basic-auth/myuser/mypass
 https://flarebin.jsherron-test-account.workers.dev/bearer
 
+# Utilities
+https://flarebin.jsherron-test-account.workers.dev/base64/aGVsbG8=
+https://flarebin.jsherron-test-account.workers.dev/uuid
+
 # Cookies
 https://flarebin.jsherron-test-account.workers.dev/cookies
 https://flarebin.jsherron-test-account.workers.dev/cookies/set?foo=bar&baz=qux
