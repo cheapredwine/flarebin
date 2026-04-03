@@ -319,14 +319,41 @@ function buildCfInfo(request: Request): CFMetadata {
     }
   }
 
+  // Access the request.cf object which contains Cloudflare-specific metadata
+  const cf = (request as any).cf || {};
+
   return {
+    // Basic request info
     ray: request.headers.get('cf-ray') ?? null,
-    country: request.headers.get('cf-ipcountry') ?? null,
     ip: getClientIP(request),
     scheme: scheme ?? request.headers.get('x-forwarded-proto') ?? 'https',
+    
+    // Geographic info (from request.cf)
+    colo: cf.colo ?? null,
+    country: cf.country ?? null,
+    region: cf.region ?? null,
+    regionCode: cf.regionCode ?? null,
+    city: cf.city ?? null,
+    postalCode: cf.postalCode ?? null,
+    metroCode: cf.metroCode ?? null,
+    timezone: cf.timezone ?? null,
+    latitude: cf.latitude ?? null,
+    longitude: cf.longitude ?? null,
+    
+    // Network info (from request.cf)
+    asn: cf.asn ?? null,
+    asOrganization: cf.asOrganization ?? null,
+    
+    // Performance metrics (from request.cf)
+    clientTcpRtt: cf.clientTcpRtt ?? null,
+    clientQuicRtt: cf.clientQuicRtt ?? null,
+    
+    // Device/client info
     device: request.headers.get('cf-device-type') ?? null,
+    clientAcceptEncoding: cf.clientAcceptEncoding ?? null,
+    
+    // Worker context
     isWorkerSubrequest: request.headers.get('cf-worker') !== null,
-    colo: request.headers.get('cf-ray')?.split('-')[1] ?? null,
   };
 }
 

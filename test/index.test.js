@@ -142,6 +142,20 @@ describe('cf-httpbin', () => {
           'CF-Visitor': '{"scheme":"https"}',
           'CF-Device-Type': 'desktop',
         },
+        cf: {
+          colo: 'SJC',
+          country: 'US',
+          region: 'California',
+          regionCode: 'CA',
+          city: 'San Jose',
+          postalCode: '95141',
+          timezone: 'America/Los_Angeles',
+          latitude: '37.3394',
+          longitude: '-121.8950',
+          asn: 13335,
+          asOrganization: 'Cloudflare',
+          clientTcpRtt: 15,
+        },
       });
       expect(resp.status).toBe(200);
       const json = await resp.json();
@@ -152,6 +166,19 @@ describe('cf-httpbin', () => {
       expect(json.device).toBe('desktop');
       expect(json.colo).toBe('SJC');
       expect(json.isWorkerSubrequest).toBe(false);
+      // Check new fields from request.cf
+      expect(json.region).toBe('California');
+      expect(json.regionCode).toBe('CA');
+      expect(json.city).toBe('San Jose');
+      expect(json.postalCode).toBe('95141');
+      expect(json.timezone).toBe('America/Los_Angeles');
+      expect(json.latitude).toBe('37.3394');
+      expect(json.longitude).toBe('-121.8950');
+      expect(json.asn).toBe(13335);
+      expect(json.asOrganization).toBe('Cloudflare');
+      expect(json.clientTcpRtt).toBe(15);
+      expect(json.clientQuicRtt).toBe(null);
+      expect(json.clientAcceptEncoding).toBe(null);
     });
   });
 

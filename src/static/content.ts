@@ -197,7 +197,7 @@ export const INDEX_HTML = `<!DOCTYPE html>
     <tr><td><a href="/headers">/headers</a></td><td>Returns all request headers</td></tr>
     <tr><td><a href="/ip">/ip</a></td><td>Returns origin (client), proxy (edge), and forwarded_for chain</td></tr>
     <tr><td><a href="/user-agent">/user-agent</a></td><td>Returns user-agent string</td></tr>
-    <tr><td><a href="/cf">/cf</a></td><td>Returns Cloudflare metadata: Ray ID, country, colo, device type</td></tr>
+    <tr><td><a href="/cf">/cf</a></td><td>Returns Cloudflare metadata: location (colo, country, region, city), network (ASN), performance (RTT), and more</td></tr>
   </table>
 
   <h2>Response Formats</h2>

@@ -9,13 +9,37 @@ export interface IPInfo {
 }
 
 export interface CFMetadata {
+  // Basic request info
   ray: string | null;
-  country: string | null;
   ip: string;
   scheme: string;
-  device: string | null;
-  isWorkerSubrequest: boolean;
+  
+  // Geographic info
   colo: string | null;
+  country: string | null;
+  region: string | null;
+  regionCode: string | null;
+  city: string | null;
+  postalCode: string | null;
+  metroCode: string | null;
+  timezone: string | null;
+  latitude: string | null;
+  longitude: string | null;
+  
+  // Network info
+  asn: number | null;
+  asOrganization: string | null;
+  
+  // Performance metrics
+  clientTcpRtt: number | null;
+  clientQuicRtt: number | null;
+  
+  // Device/client info
+  device: string | null;
+  clientAcceptEncoding: string | null;
+  
+  // Worker context
+  isWorkerSubrequest: boolean;
 }
 
 export interface FileInfo {

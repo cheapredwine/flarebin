@@ -24,7 +24,7 @@ An [httpbin.org](https://httpbin.org)-compatible HTTP testing service running on
 | `/headers` | Returns request headers |
 | `/ip` | Returns client IP, proxy IP, and `X-Forwarded-For` chain |
 | `/user-agent` | Returns user-agent string |
-| `/cf` | Returns Cloudflare-specific metadata (Ray ID, country, colo, etc.) |
+| `/cf` | Returns Cloudflare metadata: location (colo, country, region, city, lat/lon, timezone), network (ASN, organization), performance (TCP/QUIC RTT), and request info (Ray ID, scheme, device) |
 
 ### Response Formats
 
