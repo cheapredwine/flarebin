@@ -283,7 +283,7 @@ export const INDEX_HTML = `<!DOCTYPE html>
   <p class="note">Cloudflare-specific endpoints and metadata</p>
   <table>
     <tr><th>Endpoint</th><th>Description</th></tr>
-    <tr><td><a href="/cdn-cgi">/cdn-cgi</a></td><td>Cloudflare cache layer endpoint that returns CF-Cache-Status header (bypasses Worker)</td></tr>
+    <tr><td><a href="/cdn-cgi/trace">/cdn-cgi/trace</a></td><td>Cloudflare trace endpoint - returns geo, IP, colo info (bypasses Worker)</td></tr>
   </table>
 
   <footer>
