@@ -279,6 +279,13 @@ export const INDEX_HTML = `<!DOCTYPE html>
     <tr><td><a href="/diagnostics">/diagnostics</a></td><td>Complete diagnostics (connection + timing + geo)</td></tr>
   </table>
 
+  <h2>Cloudflare</h2>
+  <p class="note">Cloudflare-specific endpoints and metadata</p>
+  <table>
+    <tr><th>Endpoint</th><th>Description</th></tr>
+    <tr><td><a href="/cdn-cgi">/cdn-cgi</a></td><td>Cloudflare cache layer endpoint that returns CF-Cache-Status header (bypasses Worker)</td></tr>
+  </table>
+
   <footer>
     <p>
       <strong>flarebin</strong> | 
