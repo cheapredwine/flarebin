@@ -195,12 +195,12 @@ export function buildDiagnostics(
     device: request.headers.get('cf-device-type') ?? null,
     clientAcceptEncoding: (cf?.clientAcceptEncoding as string | undefined) ?? null,
     isWorkerSubrequest: request.headers.get('cf-worker') !== null,
-    cacheStatus: request.headers.get('cf-cache-status') ?? 'DYNAMIC',
-    ipCountry: request.headers.get('cf-ipcountry') ?? null,
-    trueClientIp: request.headers.get('true-client-ip') ?? null,
-    botManagement: request.headers.get('cf-bot-detection') ?? null,
-    ipc: request.headers.get('cf-ipc') ?? null,
-    requestPriority: request.headers.get('cf-ew') ?? null,
+    'CF-Cache-Status': request.headers.get('cf-cache-status') ?? 'DYNAMIC',
+    'CF-IPCountry': request.headers.get('cf-ipcountry') ?? null,
+    'True-Client-IP': request.headers.get('true-client-ip') ?? null,
+    'CF-Bot-Detection': request.headers.get('cf-bot-detection') ?? null,
+    'CF-IPC': request.headers.get('cf-ipc') ?? null,
+    'CF-EW': request.headers.get('cf-ew') ?? null,
   };
 
   // Calculate server processing time

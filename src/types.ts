@@ -65,7 +65,7 @@ export interface CFMetadata {
   /** HTTP or HTTPS */
   scheme: string;
   /** Cache status from CF-Cache-Status header (DYNAMIC, HIT, MISS, etc.) */
-  cacheStatus: string | null;
+  'CF-Cache-Status': string;
 
   // Geographic info
   /** Cloudflare datacenter code (e.g., "SJC" for San Jose) */
@@ -111,17 +111,12 @@ export interface CFMetadata {
   /** True if this request came from another Worker */
   isWorkerSubrequest: boolean;
 
-  // Additional CF headers
-  /** IP country from CF-IPCountry header (may differ from geo country) */
-  ipCountry: string | null;
-  /** True-Client-IP header (Enterprise) */
-  trueClientIp: string | null;
-  /** Bot Management detection result (Enterprise) */
-  botManagement: string | null;
-  /** CF-IPC header - Enterprise plan type */
-  ipc: string | null;
-  /** Request priority from CF-EW (Early Hints/Workers) */
-  requestPriority: string | null;
+  // Additional CF headers (raw header names)
+  'CF-IPCountry': string | null;
+  'True-Client-IP': string | null;
+  'CF-Bot-Detection': string | null;
+  'CF-IPC': string | null;
+  'CF-EW': string | null;
 }
 
 /**

@@ -161,6 +161,7 @@ describe('flarebin', () => {
         headers: {
           'CF-Ray': '8f8f8f8f8f8f8f8f-SJC',
           'CF-IPCountry': 'US',
+          'CF-Cache-Status': 'DYNAMIC',
           'CF-Connecting-IP': '1.2.3.4',
           'CF-Visitor': '{"scheme":"https"}',
           'CF-Device-Type': 'desktop',
@@ -203,12 +204,12 @@ describe('flarebin', () => {
       expect(json.clientQuicRtt).toBe(null);
       expect(json.clientAcceptEncoding).toBe(null);
       // Check cache status and new CF headers
-      expect(json.cacheStatus).toBe('DYNAMIC');
-      expect(json.ipCountry).toBe('US');
-      expect(json.trueClientIp).toBe(null);
-      expect(json.botManagement).toBe(null);
-      expect(json.ipc).toBe(null);
-      expect(json.requestPriority).toBe(null);
+      expect(json['CF-Cache-Status']).toBe('DYNAMIC');
+      expect(json['CF-IPCountry']).toBe('US');
+      expect(json['True-Client-IP']).toBe(null);
+      expect(json['CF-Bot-Detection']).toBe(null);
+      expect(json['CF-IPC']).toBe(null);
+      expect(json['CF-EW']).toBe(null);
     });
   });
 
