@@ -202,6 +202,13 @@ describe('flarebin', () => {
       expect(json.clientTcpRtt).toBe(15);
       expect(json.clientQuicRtt).toBe(null);
       expect(json.clientAcceptEncoding).toBe(null);
+      // Check cache status and new CF headers
+      expect(json.cacheStatus).toBe('DYNAMIC');
+      expect(json.ipCountry).toBe('US');
+      expect(json.trueClientIp).toBe(null);
+      expect(json.botManagement).toBe(null);
+      expect(json.ipc).toBe(null);
+      expect(json.requestPriority).toBe(null);
     });
   });
 

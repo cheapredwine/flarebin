@@ -144,6 +144,7 @@ export function handleCf(request: CFRequest): Response {
     ray: request.headers.get('cf-ray') ?? null,
     ip: getClientIP(request),
     scheme: scheme ?? request.headers.get('x-forwarded-proto') ?? 'https',
+    cacheStatus: request.headers.get('cf-cache-status') ?? 'DYNAMIC',
 
     // Geographic info from Cloudflare's GeoIP database
     colo: (cfProperties?.colo as string | undefined) ?? null,
@@ -171,6 +172,13 @@ export function handleCf(request: CFRequest): Response {
 
     // Worker context - is this request from another Worker?
     isWorkerSubrequest: request.headers.get('cf-worker') !== null,
+
+    // Additional CF headers
+    ipCountry: request.headers.get('cf-ipcountry') ?? null,
+    trueClientIp: request.headers.get('true-client-ip') ?? null,
+    botManagement: request.headers.get('cf-bot-detection') ?? null,
+    ipc: request.headers.get('cf-ipc') ?? null,
+    requestPriority: request.headers.get('cf-ew') ?? null,
   };
 
   return jsonResponse(metadata, request);
