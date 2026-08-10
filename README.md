@@ -389,7 +389,9 @@ This project deploys automatically to Cloudflare Workers on every push to `main`
 1. Go to [Cloudflare API Tokens](https://dash.cloudflare.com/profile/api-tokens)
 2. Click **Create Token**
 3. Use the **"Edit Cloudflare Workers"** template (click "Use template")
-4. Review the permissions (should include `Account > Workers Scripts > Edit`)
+4. Review the permissions — should include:
+   - `Account > Account Settings > Read`
+   - `Account > Workers Scripts > Edit`
 5. Click **Continue to summary**, then **Create Token**
 6. **Copy the token immediately** (you can't see it again after leaving this page)
 
