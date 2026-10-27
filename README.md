@@ -1,5 +1,10 @@
 # flarebin
 
+> ⚠️ **NOT OFFICIAL CLOUDFLARE.** Not affiliated with or endorsed by Cloudflare, Inc.
+> NO WARRANTIES, EXPRESS OR IMPLIED. Effectively untested demo code — read everything
+> and dry-run before you run. You assume all risk. See [DISCLAIMER.md](./DISCLAIMER.md).
+
+
 An [httpbin.org](https://httpbin.org)-inspired HTTP testing service running on [Cloudflare Workers](https://workers.cloudflare.com). No servers, no containers — just a Worker deployed globally on Cloudflare's edge.
 
 **Live:** [https://flarebin.jsherron-test-account.workers.dev](https://flarebin.jsherron-test-account.workers.dev)
