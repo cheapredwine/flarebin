@@ -34,3 +34,7 @@ Use conventional commit prefixes:
 ## Verification
 
 `npm run verify` is the done-check for any code change in this repo (agents: run it before claiming done; task is complete when it exits 0).
+
+## Merge authority (user grant, 2026-10-29)
+
+Jason has granted standing merge authority for this repo: agents may merge their own PRs without asking. Main pushes are blocked by repo rules, so the workflow is: branch → PR → merge the PR (and delete the branch). This is the first repo with this grant; it does not extend to other repos.
