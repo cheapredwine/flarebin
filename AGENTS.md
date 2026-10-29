@@ -30,3 +30,7 @@ Use conventional commit prefixes:
 - `refactor:` — Code refactoring without changing functionality
 - `test:` — Adding or updating tests
 - `chore:` — Maintenance tasks (build, deps, etc.)
+
+## Verification
+
+`npm run verify` is the done-check for any code change in this repo (agents: run it before claiming done; task is complete when it exits 0).
