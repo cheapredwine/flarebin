@@ -17,7 +17,7 @@
  * export - Makes this type available for import in other files
  */
 
-import type { CfProperties } from '@cloudflare/workers-types';
+type CfProperties = NonNullable<Request["cf"]>;
 
 /**
  * Extended Request type with Cloudflare properties

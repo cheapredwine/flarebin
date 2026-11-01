@@ -17,7 +17,6 @@
     "verify": "npm run typecheck && npm run test"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^5.20260807.2",
     "esbuild": "^0.27.7",
     "miniflare": "^4.20260401.0",
     "typescript": "^6.0.2",
